@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/users", userRoute);
+app.use("/", userRoute);
 
 // catch all route
 app.all("*", (req, res) => {
