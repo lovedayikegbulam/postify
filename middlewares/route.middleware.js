@@ -3,7 +3,7 @@ export const validationMiddleWare = (schema) => {
       // Middleware logic
       if (schema) {
         const result = schema.validate(req.body);
-        console.log("here", result);
+        console.log("Request body validation successful");
         if (result.error) {
           return res
             .status(400)
