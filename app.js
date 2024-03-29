@@ -1,7 +1,7 @@
 import express from 'express';
 import CONFIG from "./config/config.js";
 import connectToDb from "./database/connection.js";
-
+import userRoute from "./routes/users.route.js";
 
 
 const app = express();
@@ -15,9 +15,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('Welcome to the Express server!');
-});
+app.use("/users", userRoute);
+
+// catch all route
+app.all("*", (req, res) => {
+    res.status(404);
+    res.json({
+      message: "Not found",
+    });
+  });
 
 // Start the server
 app.listen(PORT, () => {
