@@ -7,6 +7,13 @@ import  { ErrorWithStatus }  from "../exceptions/error-with-status.exception.js"
 
 
 export const registerUser = async (name, email, password) => {
+
+  // Check if email exists
+  const user = await User.findOne({ email });
+  if (user) {
+    throw new ErrorWithStatus("User already exists", 400);
+  }
+  
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
     return await newUser.save();

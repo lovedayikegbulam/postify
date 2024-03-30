@@ -35,7 +35,7 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    const { postId } = req.params;
+    const postId = req.query.postId;
     const { title, body } = req.body;
     const userId = req.user.id;
 
@@ -43,10 +43,11 @@ export const updatePost = async (req, res) => {
     const user = await userService.getUserById(userId);
 
     // Fetch the post to check if the user is the owner
-    const post = await postService.getPostById(postId); 
+    const post = await postService.getPostById(postId);
+
 
     // Check if the user is the owner of the post
-    if (post.user.toString() !== userId) {
+    if (post.user.id.toString() !== userId) {
       return res
         .status(403)
         .json({ message: "You are not authorized to update this post" });

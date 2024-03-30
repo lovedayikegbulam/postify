@@ -10,7 +10,7 @@ export const createPost = async (title, body, userId) => {
 export const updatePost = async (postId, title, body, userId) => {
   const post = await Post.findById(postId);
   if (!post) {
-    throw new Error("Post not found");
+    throw new ErrorWithStatus("Post not found", 401);
   }
   if (post.user.toString() !== userId) {
     throw new ErrorWithStatus(
