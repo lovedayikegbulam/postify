@@ -4,10 +4,11 @@ import { validationMiddleWare } from "../middlewares/route.middleware.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import postSchema  from "../validations/post.validation.js";
 
-const userRouter = Router();
+const postRouter = Router();
 
-userRouter.post("/create", validationMiddleWare(postSchema), authMiddleware, postController.createPost);
+postRouter.post("/create", validationMiddleWare(postSchema), authMiddleware, postController.createPost);
+postRouter.get("/allposts", postController.getAllPosts);
 
 
 
-export default userRouter;
+export default postRouter;

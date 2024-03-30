@@ -28,17 +28,24 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-postSchema.set("toJSON", {
+// Apply the toJSON transformation to the schema
+postSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function(doc, ret) {
+    // Remove _id and __v
     delete ret._id;
     delete ret.__v;
+
     // Move 'id' to the top
     const { id, ...rest } = ret;
     return { id, ...rest };
-  },
+  }
 });
 
-const Post = mongoose.model("Post", postSchema);
+
+// Create model using the schema
+const Post = mongoose.model('Post', postSchema);
+
+// Exporting the Post model
 export default Post;

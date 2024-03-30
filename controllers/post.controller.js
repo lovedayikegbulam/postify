@@ -1,5 +1,8 @@
 import * as postService from '../services/post.service.js';
 import * as userService from '../services/user.service.js';
+import  { ErrorWithStatus }  from "../exceptions/error-with-status.exception.js"
+
+
 
 
 
@@ -13,18 +16,22 @@ export const createPost = async (req, res) => {
 
         // Check if user exists
         if (!user) {
-            throw new Error('User not found');
+            throw new ErrorWithStatus("User not found", 401);
         }
 
         // Create post with the user's ObjectId
-        const newPost = await postService.createPost(title, body, user.id);
+        let newPost = await postService.createPost(title, body, user.id);
+
+        // Populate the user field in the newPost object
+        newPost = await newPost.populate('user')
         
         // Send response with the entire user object included
-        res.status(201).json({ message: 'Post created successfully', data: { ...newPost.toObject(), user } });
+        res.status(201).json({ message: 'Post created successfully', data: newPost });
     } catch (error) {
         res.status(400).json({ message: 'Post creation failed', error: error.message });
     }
 };
+
 
 export const updatePost = async (req, res) => {
     try {
@@ -38,14 +45,25 @@ export const updatePost = async (req, res) => {
     }
 };
 
+
 export const getAllPosts = async (req, res) => {
     try {
-        const posts = await postService.getAllPosts();
+        // Parse query parameters
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        const order = req.query.order || 'desc';
+        const orderBy = req.query.orderBy || 'createdAt';
+
+        // Fetch paginated posts
+        const posts = await postService.getAllPosts(limit, page, order, orderBy);
+
+        // Send response with paginated posts
         res.json({ message: 'All posts', data: posts });
     } catch (error) {
         res.status(400).json({ message: 'Error fetching posts', error: error.message });
     }
 };
+
 
 export const getPostById = async (req, res) => {
     try {
