@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 // Post schema
 const postSchema = new mongoose.Schema({
   title: {
@@ -23,6 +25,18 @@ const postSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
+  },
+});
+
+postSchema.set("toJSON", {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret) {
+    delete ret._id;
+    delete ret.__v;
+    // Move 'id' to the top
+    const { id, ...rest } = ret;
+    return { id, ...rest };
   },
 });
 
