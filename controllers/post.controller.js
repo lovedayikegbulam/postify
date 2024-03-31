@@ -32,7 +32,6 @@ export const createPost = async (req, res) => {
   }
 };
 
-
 export const updatePost = async (req, res) => {
   try {
     const postId = req.query.postId;
@@ -45,13 +44,7 @@ export const updatePost = async (req, res) => {
     // Fetch the post to check if the user is the owner
     const post = await postService.getPostById(postId);
 
-
-    // Check if the user is the owner of the post
-    if (post.user.id.toString() !== userId) {
-      return res
-        .status(403)
-        .json({ message: "You are not authorized to update this post" });
-    }
+    // Check if the user is the owner of the post in post service
 
     // Update the post
     let updatedPost = await postService.updatePost(postId, title, body, userId);
@@ -103,6 +96,15 @@ export const deletePost = async (req, res) => {
   try {
     const { postId } = req.params;
     const userId = req.user.id;
+
+    // Fetch user details from the database
+    const user = await userService.getUserById(userId);
+
+    // Check if user exists
+    if (!user) {
+      throw new ErrorWithStatus("User not found", 401);
+    }
+
     await postService.deletePost(postId, userId);
     res.json({ message: "Post deleted successfully" });
   } catch (error) {
