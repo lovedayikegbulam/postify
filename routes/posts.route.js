@@ -9,6 +9,7 @@ const postRouter = Router();
 postRouter.post("/create", validationMiddleWare(postSchema), authMiddleware, postController.createPost);
 postRouter.patch("/update", validationMiddleWare(postSchema), authMiddleware, postController.updatePost);
 postRouter.get("/:postId", postController.getPostById);
+postRouter.delete("/:postId", authMiddleware, postController.deletePost);
 postRouter.get("/all", postController.getAllPosts);
 
 
