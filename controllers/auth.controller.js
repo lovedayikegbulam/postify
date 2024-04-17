@@ -3,12 +3,12 @@ import * as authService from "../services/auth.service.js";
 //Register user
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    const { firstname, lastname, email, password, confirmPassword } = req.body;
     if (password !== confirmPassword) {
       return res.status(400).json({ message: "Passwords do not match" });
     }
 
-    const newUser = await authService.registerUser(name, email, password);
+    const newUser = await authService.registerUser(firstname, lastname, email, password);
 
     res
       .status(201)
