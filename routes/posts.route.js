@@ -18,7 +18,7 @@ postRouter.patch(
   authMiddleware,
   postController.updatePost
 );
-postRouter.get("/", postController.getAllPosts);
+postRouter.get("", postController.getAllPosts);
 postRouter.get("/:postId", postController.getPostById);
 postRouter.delete("/:postId", authMiddleware, postController.deletePost);
 
