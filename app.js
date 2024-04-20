@@ -18,11 +18,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/auth", userRoute);
 app.use("/posts", postRoute);
 
+app.get("", (req, res) => {
+  res.status(404);
+  res.json({
+    message: "Welcome to the home route of the API!",
+  });
+});
+
 // catch all route
 app.all("*", (req, res) => {
   res.status(404);
   res.json({
-    message: "Not found",
+    message: "PAGE NOT FOUND",
   });
 });
 
