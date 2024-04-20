@@ -15,7 +15,6 @@ postRouter.post(
 
 postRouter.patch(
   "/:postId",
-  validationMiddleWare(postSchema),
   authMiddleware,
   postController.updatePost
 );
