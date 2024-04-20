@@ -3,12 +3,12 @@ import * as authService from "../services/auth.service.js";
 //Register user
 export const registerUser = async (req, res) => {
   try {
-    const { firstname, lastname, email, password, confirmPassword } = req.body;
+    const { name, email, password, confirmPassword } = req.body;
     if (password !== confirmPassword) {
       return res.status(400).json({ message: "Passwords do not match" });
     }
 
-    const newUser = await authService.registerUser(firstname, lastname, email, password);
+    const newUser = await authService.registerUser(name, email, password);
 
     res
       .status(201)
@@ -26,11 +26,11 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
 
-    const { email, password, confirmPassword } = req.body;
+    const { email, password } = req.body;
 
-    if (password !== confirmPassword) {
-      return res.status(400).json({ message: "Passwords do not match" });
-    }
+    // if (password !== confirmPassword) {
+    //   return res.status(400).json({ message: "Passwords do not match" });
+    // }
 
     const {token, user} = await authService.login(email, password);
 
