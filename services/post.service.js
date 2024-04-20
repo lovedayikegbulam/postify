@@ -47,12 +47,17 @@ export const getAllPosts = async (limit, page, order, orderBy) => {
 };
 
 export const getPostById = async (postId) => {
-  const post = await Post.findById(postId).populate("user");
-  if (!post) {
-    throw new ErrorWithStatus("Post not found", 404);
+  try {
+    const post = await Post.findById(postId).populate("user");
+    if (!post) {
+      throw new ErrorWithStatus("Post not found", 404);
+    }
+    return post;
+  } catch (error) {
+    throw new ErrorWithStatus(`Error fetching post: ${error.message}`, 500);
   }
-  return post;
 };
+
 
 export const deletePost = async (postId, userId) => {
   const post = await Post.findById(postId);
