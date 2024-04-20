@@ -34,7 +34,7 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    const postId = req.query.postId;
+    const postId = req.params;
     const { title, body } = req.body;
     const userId = req.user.id;
 
