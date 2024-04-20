@@ -12,7 +12,10 @@ export const updatePost = async (postId, title, body, userId) => {
   if (!post) {
     throw new ErrorWithStatus("Post not found", 401);
   }
-  if (post.user.id.toString() !== userId) {
+
+  const populatedPost = await post.populate("user");
+
+  if (populatedPost.user.id.toString() !== userId) {
     throw new ErrorWithStatus(
       "You are not authorized to update this post",
       403
@@ -57,7 +60,6 @@ export const getPostById = async (postId) => {
     throw new ErrorWithStatus(`Error fetching post: ${error.message}`, 500);
   }
 };
-
 
 export const deletePost = async (postId, userId) => {
   const post = await Post.findById(postId);

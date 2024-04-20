@@ -34,7 +34,7 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    const postId = req.params;
+    const { postId } = req.params;
     const { title, body } = req.body;
     const userId = req.user.id;
 
@@ -63,7 +63,7 @@ export const updatePost = async (req, res) => {
 export const getAllPosts = async (req, res) => {
   try {
     // Parse query parameters
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 20;
     const page = parseInt(req.query.page) || 1;
     const order = req.query.order || "desc";
     const orderBy = req.query.orderBy || "createdAt";
