@@ -1,4 +1,4 @@
-{
+const data = {
     "message": "Welcome to the base route",
     "name": "Loveday Ikegbulam",
     "email": "lovedayikegbulam515@gmail.com",
@@ -34,4 +34,7 @@
       }
     }
   }
+
+  export default data;
+  
   
