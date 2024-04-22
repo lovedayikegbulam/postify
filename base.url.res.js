@@ -7,29 +7,29 @@ const data = {
   "Routes": {
     "authRoute": {
       "method": "POST",
-      "register": `${data.baseUrl}/api/auth/register`,
-      "login": `${data.baseUrl}/api/auth/login`
+      "register": `${baseUrl}/api/auth/register`,
+      "login": `${baseUrl}/api/auth/login`
     },
     "postRoute": {
       "createPost": {
         "method": "POST",
-        "url": `${data.baseUrl}/api/posts/create`
+        "url": `${baseUrl}/api/posts/create`
       },
       "updatePost": {
         "method": "PATCH",
-        "url": `${data.baseUrl}/api/posts/postId`
+        "url": `${baseUrl}/api/posts/postId`
       },
       "getAllPosts": {
         "method": "GET",
-        "url": `${data.baseUrl}/api/posts`
+        "url": `${baseUrl}/api/posts`
       },
       "getPostById": {
         "method": "GET",
-        "url": `${data.baseUrl}/api/posts/postId`
+        "url": `${baseUrl}/api/posts/postId`
       },
       "deletePost": {
         "method": "DELETE",
-        "url": `${data.baseUrl}/api/posts/postId`
+        "url": `${baseUrl}/api/posts/postId`
       }
     }
   }
