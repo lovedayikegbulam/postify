@@ -3,6 +3,7 @@ import CONFIG from "./config/config.js";
 import connectToDb from "./database/connection.js";
 import userRoute from "./routes/users.route.js";
 import postRoute from "./routes/posts.route.js";
+import data from "./guide.js";
 
 const app = express();
 const PORT = CONFIG.PORT || 3000;
@@ -15,14 +16,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/auth", userRoute);
-app.use("/posts", postRoute);
+app.use("/api/auth", userRoute);
+app.use("/api/posts", postRoute);
 
+// Handle the base route
 app.get("", (req, res) => {
   res.status(404);
-  res.json({
-    message: "Welcome to the home route of the API!",
-  });
+  res.json(data);
 });
 
 // catch all route
