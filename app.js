@@ -3,7 +3,7 @@ import CONFIG from "./config/config.js";
 import connectToDb from "./database/connection.js";
 import userRoute from "./routes/users.route.js";
 import postRoute from "./routes/posts.route.js";
-import data from "./jsw.js";
+import data from "./guide.js";
 
 const app = express();
 const PORT = CONFIG.PORT || 3000;
